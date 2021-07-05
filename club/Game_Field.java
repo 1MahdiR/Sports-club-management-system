@@ -31,4 +31,8 @@ public class Game_Field extends Equipment {
     public Field_Class getField_class() {
         return field_class;
     }
+
+    public String toString() {
+        return String.format("<Equipment: Game Field [code:%s]-[type:%s]>", this.code, this.field_type);
+    }
 }

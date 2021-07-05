@@ -23,4 +23,8 @@ public class Equipment {
     public void setPrice(long p) {
         this.price = p;
     }
+
+    public String toString() {
+        return String.format("<Equipment [code:%s]>", this.code);
+    }
 }

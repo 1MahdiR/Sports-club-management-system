@@ -19,4 +19,7 @@ public class Game_Table extends Equipment {
 
     public Table_Class getTable_class() { return this.table_class; }
 
+    public String toString() {
+        return String.format("<Equipment: Game Console [code:%s]-[type:%s]>", this.code, this.table_type);
+    }
 }

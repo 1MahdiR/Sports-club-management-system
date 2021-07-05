@@ -23,4 +23,8 @@ public class Game_Console extends Equipment {
 
     public Console_Type getConsole_type() { return this.console_type; }
     public boolean is_vip() { return this.vip; }
+
+    public String toString() {
+        return String.format("<Equipment: Game Console [code:%s]-[type:%s]>", this.code, this.console_type);
+    }
 }
