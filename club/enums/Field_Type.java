@@ -1,0 +1,3 @@
+package club.enums;
+
+public enum Field_Type { FOOTBALL, FUTSAL, VOLLEYBALL, HANDBALL, TENNIS, HOCKEY, BASKETBALL, BASEBALL, SOCCER }
