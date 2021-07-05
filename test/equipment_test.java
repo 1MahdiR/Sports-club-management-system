@@ -1,5 +1,6 @@
 package test;
 
+import club.Equipment;
 import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
@@ -8,6 +9,22 @@ import club.enums.*;
 public class equipment_test {
 
     public static void main(String[] args) {
+
+        Equipment eq;
+        try {
+            eq = new Equipment(3000);
+            System.out.println(eq.getPrice());
+            System.out.println(eq.getCode());
+            eq.setPrice(3500);
+            System.out.println(eq.getPrice());
+
+            System.out.println(eq);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Something happened!");
+        }
+        System.out.println();
 
         Game_Field a;
         try {
