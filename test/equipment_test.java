@@ -80,5 +80,79 @@ public class equipment_test {
             System.out.println(e);
             System.out.println("Something happened!");
         }
+        System.out.println();
+
+        Equipment eq2;
+        try {
+            eq2 = new Equipment("eq2_code", 3000);
+            System.out.println(eq2.getPrice());
+            System.out.println(eq2.getCode());
+            eq2.setPrice(3500);
+            System.out.println(eq2.getPrice());
+
+            System.out.println(eq2);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Something happened!");
+        }
+        System.out.println();
+
+        Game_Field a2;
+        try {
+            a2 = new Game_Field("Game_field_code", 1000, 100, Field_Type.FOOTBALL, Field_Class.A);
+            System.out.println(a2.getField_class());
+            System.out.println(a2.getCapacity());
+            System.out.println(a2.getField_type());
+            System.out.println(a2.getPrice());
+            System.out.println(a2.getCode());
+            a2.setCapacity(200);
+            a2.setPrice(2000);
+            System.out.println(a2.getCapacity());
+            System.out.println(a2.getPrice());
+
+            System.out.println(a2);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Something happened!");
+        }
+        System.out.println();
+
+        Game_Table b2;
+        try {
+            b2 = new Game_Table("Game_table_code", 1000, Table_Type.FOOSBALL, Table_Class.A);
+            System.out.println(b2.getTable_class());
+            System.out.println(b2.getTable_type());
+            System.out.println(b2.getPrice());
+            System.out.println(b2.getCode());
+            b2.setPrice(2000);
+            System.out.println(b2.getPrice());
+
+            System.out.println(b2);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Something happened!");
+        }
+        System.out.println();
+
+        Game_Console c2;
+        try {
+            c2 = new Game_Console("Game_console_code", 1000, Console_Type.PS4, true);
+            System.out.println(c2.getConsole_type());
+            System.out.println(c2.getPrice());
+            System.out.println(c2.getCode());
+            c2.setPrice(2000);
+            System.out.println(c2.getPrice());
+
+            System.out.println(c2);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Something happened!");
+        }
+        System.out.println();
+
     }
 }
