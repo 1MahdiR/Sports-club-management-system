@@ -4,7 +4,7 @@ import club.enums.Console_Type;
 
 public class Game_Console extends Equipment {
 
-    private Console_Type console_type;
+    private final Console_Type console_type;
     boolean vip;
 
     public Game_Console(long price, Console_Type console_type, boolean is_vip) {

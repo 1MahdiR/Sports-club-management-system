@@ -5,8 +5,8 @@ import club.enums.Table_Type;
 
 public class Game_Table extends Equipment {
 
-    private Table_Type table_type;
-    private Table_Class table_class;
+    private final Table_Type table_type;
+    private final Table_Class table_class;
 
     public Game_Table(long price, Table_Type table_type, Table_Class table_class) {
         super(price);

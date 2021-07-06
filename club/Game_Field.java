@@ -6,8 +6,8 @@ import club.enums.Field_Type;
 public class Game_Field extends Equipment {
 
     private int capacity;
-    private Field_Type field_type;
-    private Field_Class field_class;
+    private final Field_Type field_type;
+    private final Field_Class field_class;
 
     public Game_Field(long price, int capacity, Field_Type f_type, Field_Class f_class) {
         super(price);
