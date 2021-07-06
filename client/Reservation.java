@@ -53,6 +53,38 @@ public class Reservation {
         this.paid = false;
     }
 
+    public Reservation(String id, User user, Equipment equipment, Date reserve_date, Date reserve_duration) throws DurationLimitException, ReservationDatePassedException {
+
+        if (!check_duration(reserve_duration)) {
+            throw new DurationLimitException();
+        }
+
+        this.id = id;
+        this.user = user;
+        this.equipment = equipment;
+        if (equipment instanceof Game_Field) {
+            Date d = new Date();
+            if (d.after(reserve_date)) {
+                throw new ReservationDatePassedException();
+            }
+            this.reserve_date = reserve_date;
+        } else {
+            this.reserve_date = new Date();
+        }
+        this.reserve_duration = reserve_duration;
+
+        GregorianCalendar g = new GregorianCalendar();
+        g.setTime(reserve_duration);
+        int hours = g.get(Calendar.HOUR);
+        float minutes = (float)(g.get(Calendar.MINUTE)) / 60;
+        long price = (long) ((hours + minutes) * equipment.getPrice());
+        price -= price % 100;
+        this.total_price = price;
+
+        this.submit_date = new Date();
+        this.paid = false;
+    }
+
     public String getId() { return this.id; }
 
     public User getUser() { return this.user; }
