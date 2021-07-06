@@ -68,6 +68,14 @@ public class Reservation {
         }
     }
 
+    private boolean check_duration(Date duration) {
+        GregorianCalendar g = new GregorianCalendar();
+        g.setTime(duration);
+        int hours = g.get(Calendar.HOUR);
+        int minutes = g.get(Calendar.MINUTE) + hours * 60;
+        return minutes <= (6 * 60);
+    }
+
     public boolean has_passed() {
         Date now = new Date();
         Date reserve_date = getReserve_date();
