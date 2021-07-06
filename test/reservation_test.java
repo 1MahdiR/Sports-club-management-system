@@ -7,6 +7,7 @@ import club.Game_Field;
 import club.Game_Table;
 import club.enums.*;
 import custom_exceptions.DurationLimitException;
+import custom_exceptions.ReservationDatePassedException;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -45,7 +46,7 @@ public class reservation_test {
             reserve.pay();
             System.out.printf("user's debt after paying: %d\n", user1.getDebt());
             System.out.println(reserve.isPaid());
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve = null;
             System.out.println(e);
         }
@@ -74,7 +75,7 @@ public class reservation_test {
             reserve_2.pay();
             System.out.printf("user's debt after paying: %d\n", user2.getDebt());
             System.out.println(reserve_2.isPaid());
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve_2 = null;
             System.out.println(e);
         }
@@ -107,7 +108,7 @@ public class reservation_test {
             reserve_3.pay();
             System.out.printf("user's debt after paying: %d\n", user1.getDebt());
             System.out.println(reserve_3.isPaid());
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve_3 = null;
             System.out.println(e);
         }
@@ -134,7 +135,7 @@ public class reservation_test {
             reserve_4.pay();
             System.out.printf("user's debt after paying: %d\n", user2.getDebt());
             System.out.println(reserve_4.isPaid());
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve_4 = null;
             System.out.println(e);
         }
@@ -169,7 +170,7 @@ public class reservation_test {
             reserve_5.pay();
             System.out.printf("user's debt after paying: %d\n", user1.getDebt());
             System.out.println(reserve_5.isPaid());
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve_5 = null;
             System.out.println(e);
         }
@@ -181,11 +182,24 @@ public class reservation_test {
         Reservation reserve_6;
         try {
             reserve_6 = new Reservation(user2, gf3, later_7, dg3);
-        } catch (DurationLimitException e) {
+        } catch (DurationLimitException | ReservationDatePassedException e) {
             reserve_6 = null;
             System.out.println(e);
         }
         System.out.println(reserve_6);
+        System.out.println();
+        /////////////
+        Game_Field gf4 = new Game_Field(1500, 150, Field_Type.HANDBALL, Field_Class.B);
+        GregorianCalendar g12 = new GregorianCalendar(2021,6,5);
+        Date before_3 = g12.getTime();
+        Reservation reserve_7;
+        try {
+            reserve_7 = new Reservation(user1, gf4, before_3, dg2);
+        } catch (DurationLimitException | ReservationDatePassedException e) {
+            reserve_7 = null;
+            System.out.println(e);
+        }
+        System.out.println(reserve_7);
         System.out.println();
         /////////////
 
