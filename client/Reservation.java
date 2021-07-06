@@ -3,6 +3,7 @@ package client;
 import club.Equipment;
 import club.Game_Field;
 import custom_exceptions.DurationLimitException;
+import custom_exceptions.ReservationDatePassedException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,8 +22,7 @@ public class Reservation {
     private final Date submit_date;
     private boolean paid;
 
-    // TODO: add validators to reserve_date, reserve_duration
-    public Reservation(User user, Equipment equipment, Date reserve_date, Date reserve_duration) throws DurationLimitException {
+    public Reservation(User user, Equipment equipment, Date reserve_date, Date reserve_duration) throws DurationLimitException, ReservationDatePassedException {
         if (!check_duration(reserve_duration)) {
             throw new DurationLimitException();
         }
@@ -31,6 +31,10 @@ public class Reservation {
         this.user = user;
         this.equipment = equipment;
         if (equipment instanceof Game_Field) {
+            Date d = new Date();
+            if (d.after(reserve_date)) {
+                throw new ReservationDatePassedException();
+            }
             this.reserve_date = reserve_date;
         } else {
             this.reserve_date = new Date();
