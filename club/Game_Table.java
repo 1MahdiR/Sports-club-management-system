@@ -15,6 +15,12 @@ public class Game_Table extends Equipment {
         this.table_class = table_class;
     }
 
+    public Game_Table(String code, long price, Table_Type table_type, Table_Class table_class) {
+        super(code, price);
+        this.table_type = table_type;
+        this.table_class = table_class;
+    }
+
     public Table_Type getTable_type() { return this.table_type; }
 
     public Table_Class getTable_class() { return this.table_class; }

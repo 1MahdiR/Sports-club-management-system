@@ -14,9 +14,21 @@ public class Game_Console extends Equipment {
         this.vip = is_vip;
     }
 
+    public Game_Console(String code, long price, Console_Type console_type, boolean is_vip) {
+        super(code, price);
+        this.console_type = console_type;
+        this.vip = is_vip;
+    }
+
     public Game_Console(long price, Console_Type console_type) {
         super(price);
         this.code = "C-" + this.code;
+        this.console_type = console_type;
+        this.vip = false;
+    }
+
+    public Game_Console(String code, long price, Console_Type console_type) {
+        super(code, price);
         this.console_type = console_type;
         this.vip = false;
     }

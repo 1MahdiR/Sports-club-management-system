@@ -13,6 +13,12 @@ public class Equipment {
         this.code = UUID.randomUUID().toString();
     }
 
+    public Equipment(String code, long price) {
+
+        this.price = price;
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }

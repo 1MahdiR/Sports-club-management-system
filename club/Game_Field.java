@@ -17,6 +17,13 @@ public class Game_Field extends Equipment {
         this.capacity = capacity;
     }
 
+    public Game_Field(String code, long price, int capacity, Field_Type f_type, Field_Class f_class) {
+        super(code, price);
+        this.field_type = f_type;
+        this.field_class = f_class;
+        this.capacity = capacity;
+    }
+
     public int getCapacity() {
         return capacity;
     }
