@@ -61,9 +61,11 @@ public class Reservation {
     public boolean isPaid() { return this.paid; }
 
     public void pay() {
-        User user = getUser();
-        user.increase_debt(getTotal_price());
-        this.paid = true;
+        if (!isPaid()) {
+            User user = getUser();
+            user.increase_debt(getTotal_price());
+            this.paid = true;
+        }
     }
 
     public boolean has_passed() {
