@@ -4,13 +4,20 @@ import java.util.UUID;
 
 public class User {
 
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
     private long debt;
 
     public User(String name) {
 
         this.id = "U-" + UUID.randomUUID().toString();
+        this.name = name;
+        this.debt = 0l;
+    }
+
+    public User(String id, String name) {
+
+        this.id = id;
         this.name = name;
         this.debt = 0l;
     }
