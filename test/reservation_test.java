@@ -21,6 +21,8 @@ public class reservation_test {
         Date dg = g.getTime();
         GregorianCalendar g_2 = new GregorianCalendar(0,0,0,1,15);
         Date dg2 = g_2.getTime();
+        GregorianCalendar g_3 = new GregorianCalendar(0,0,0,6,1);
+        Date dg3 = g_3.getTime();
         /////////////
         Date now = new Date();
         Equipment eq = new Equipment(1000);
@@ -171,6 +173,19 @@ public class reservation_test {
             reserve_5 = null;
             System.out.println(e);
         }
+        System.out.println();
+        /////////////
+        Game_Field gf3 = new Game_Field(1200, 200, Field_Type.BASKETBALL, Field_Class.B);
+        GregorianCalendar g11 = new GregorianCalendar(2021,10,10);
+        Date later_7 = g11.getTime();
+        Reservation reserve_6;
+        try {
+            reserve_6 = new Reservation(user2, gf3, later_7, dg3);
+        } catch (DurationLimitException e) {
+            reserve_6 = null;
+            System.out.println(e);
+        }
+        System.out.println(reserve_6);
         System.out.println();
         /////////////
 
