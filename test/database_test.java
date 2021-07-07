@@ -9,7 +9,6 @@ import club.Game_Table;
 import club.enums.*;
 import utility.Database;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -136,5 +135,37 @@ public class database_test {
         System.out.println(Database.get_equipments_with_price_equal(1000));
         System.out.println(Database.get_equipments_with_price_equal(1200));
         System.out.println(Database.get_equipments_with_price_less(Database.get_equipments_with_price_more(500), 2500));
+        System.out.println();
+        // Game field read
+        Game_Field gf3 = new Game_Field("F-first", 1000, 100, Field_Type.BASKETBALL, Field_Class.A);
+        Game_Field gf4 = new Game_Field("F-second", 1500, 150, Field_Type.FOOTBALL, Field_Class.B);
+        Database.insert_equipment(gf4);
+        Database.insert_equipment(gf3);
+        try {
+            System.out.println(Database.get_field_by_code("F-first"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_field_by_code("F-seconds"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        System.out.println(Database.get_fields_with_price_less(1200));
+        System.out.println(Database.get_fields_with_price_less(1600));
+        System.out.println(Database.get_fields_with_price_more(1200));
+        System.out.println(Database.get_fields_with_price_more(1600));
+        System.out.println(Database.get_fields_with_price_equal(1000));
+        System.out.println(Database.get_fields_with_price_equal(950));
+        System.out.println(Database.get_fields_with_capacity_less(150));
+        System.out.println(Database.get_fields_with_capacity_more(50));
+        System.out.println(Database.get_fields_with_capacity_equal(100));
+        System.out.println(Database.get_fields_with_capacity_equal(99));
+        System.out.println(Database.get_fields_with_type(Field_Type.FOOTBALL));
+        System.out.println(Database.get_fields_with_type(Field_Type.HANDBALL));
+        System.out.println(Database.get_fields_with_class(Field_Class.A));
+        System.out.println(Database.get_fields_with_class(Field_Class.D));
+        System.out.println();
+        
     }
 }
