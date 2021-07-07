@@ -8,10 +8,10 @@ import club.Game_Field;
 import club.Game_Table;
 import club.enums.*;
 import custom_exceptions.EquipmentCodeNotFoundException;
+import custom_exceptions.ReservationIdNotFoundException;
 import custom_exceptions.UserIdNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Database {
 
@@ -491,6 +491,224 @@ public class Database {
     public static List<Game_Console> get_vip_consoles() {
 
         return get_vip_consoles(console_list);
+    }
+
+    public static Reservation get_reservation_by_id(List<Reservation> list, String id) throws ReservationIdNotFoundException {
+
+        for (Reservation reservation: list) {
+            if (reservation.getId().equals(id))
+                return reservation;
+        }
+        throw new ReservationIdNotFoundException();
+    }
+
+    public static Reservation get_reservation_by_id(String id) throws ReservationIdNotFoundException {
+
+        return get_reservation_by_id(reservation_list, id);
+    }
+
+    public static List<Reservation> get_reservations_with_user(List<Reservation> list, User user) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.getUser().getId().equals(user.getId()))
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_user(User user) {
+
+        return get_reservations_with_user(reservation_list, user);
+    }
+
+    public static List<Reservation> get_reservations_with_equipment(List<Reservation> list, Equipment equipment) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.getEquipment().getCode().equals(equipment.getCode()))
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_equipment(Equipment equipment) {
+
+        return get_reservations_with_equipment(reservation_list, equipment);
+    }
+
+    public static List<Reservation> get_reservations_with_reserve_date(List<Reservation> list, Date reserve_date) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            GregorianCalendar g = new GregorianCalendar();
+            GregorianCalendar g2 = new GregorianCalendar();
+            g.setTime(reserve_date);
+            g2.setTime(reservation.getReserve_date());
+            boolean year = g.get(Calendar.YEAR) == g2.get(Calendar.YEAR);
+            boolean month = g.get(Calendar.MONTH) == g2.get(Calendar.MONTH);
+            boolean day = g.get(Calendar.DAY_OF_MONTH) == g2.get(Calendar.DAY_OF_MONTH);
+            boolean hour = g.get(Calendar.HOUR) == g2.get(Calendar.HOUR);
+            boolean minute = g.get(Calendar.MINUTE) == g2.get(Calendar.MINUTE);
+            if (year && month && day && hour && minute)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_reserve_date(Date reserve_date) {
+
+        return get_reservations_with_reserve_date(reservation_list, reserve_date);
+    }
+
+    public static List<Reservation> get_reservations_with_reserve_duration(List<Reservation> list, Date reserve_duration) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            GregorianCalendar g = new GregorianCalendar();
+            GregorianCalendar g2 = new GregorianCalendar();
+            g.setTime(reserve_duration);
+            g2.setTime(reservation.getReserve_duration());
+            boolean hour = g.get(Calendar.HOUR) == g2.get(Calendar.HOUR);
+            boolean minute = g.get(Calendar.MINUTE) == g2.get(Calendar.MINUTE);
+            if (hour && minute)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_reserve_duration(Date reserve_duration) {
+
+        return get_reservations_with_reserve_duration(reservation_list, reserve_duration);
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_less(List<Reservation> list, long price) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.getTotal_price() < price)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_less(long price) {
+
+        return get_reservations_with_total_price_less(reservation_list, price);
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_more(List<Reservation> list, long price) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.getTotal_price() > price)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_more(long price) {
+
+        return get_reservations_with_total_price_more(reservation_list, price);
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_equal(List<Reservation> list, long price) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.getTotal_price() == price)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_total_price_equal(long price) {
+
+        return get_reservations_with_total_price_equal(reservation_list, price);
+    }
+
+    public static List<Reservation> get_reservations_with_submit_date(List<Reservation> list, Date submit_date) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            GregorianCalendar g = new GregorianCalendar();
+            GregorianCalendar g2 = new GregorianCalendar();
+            g.setTime(submit_date);
+            g2.setTime(reservation.getSubmit_date());
+            boolean year = g.get(Calendar.YEAR) == g2.get(Calendar.YEAR);
+            boolean month = g.get(Calendar.MONTH) == g2.get(Calendar.MONTH);
+            boolean day = g.get(Calendar.DAY_OF_MONTH) == g2.get(Calendar.DAY_OF_MONTH);
+            boolean hour = g.get(Calendar.HOUR) == g2.get(Calendar.HOUR);
+            boolean minute = g.get(Calendar.MINUTE) == g2.get(Calendar.MINUTE);
+            if (year && month && day && hour && minute)
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_reservations_with_submit_date(Date submit_date) {
+
+        return get_reservations_with_submit_date(reservation_list, submit_date);
+    }
+
+    public static List<Reservation> get_paid_reservations(List<Reservation> list) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.isPaid())
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_paid_reservations() {
+
+        return get_paid_reservations(reservation_list);
+    }
+
+    public static List<Reservation> get_not_paid_reservations(List<Reservation> list) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (!reservation.isPaid())
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_not_paid_reservations() {
+
+        return get_not_paid_reservations(reservation_list);
+    }
+
+    public static List<Reservation> get_past_reservations(List<Reservation> list) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (reservation.has_passed())
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_past_reservations() {
+
+        return get_past_reservations(reservation_list);
+    }
+
+    public static List<Reservation> get_next_reservations(List<Reservation> list) {
+
+        List<Reservation> temp = new ArrayList<Reservation>();
+        for (Reservation reservation: list) {
+            if (!reservation.has_passed())
+                temp.add(reservation);
+        }
+        return temp;
+    }
+
+    public static List<Reservation> get_next_reservations() {
+
+        return get_next_reservations(reservation_list);
     }
 
 }
