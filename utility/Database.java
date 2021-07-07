@@ -6,10 +6,7 @@ import club.Equipment;
 import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
-import club.enums.Field_Class;
-import club.enums.Field_Type;
-import club.enums.Table_Class;
-import club.enums.Table_Type;
+import club.enums.*;
 import custom_exceptions.EquipmentCodeNotFoundException;
 import custom_exceptions.UserIdNotFoundException;
 
@@ -406,4 +403,94 @@ public class Database {
 
         return get_tables_with_class(table_list, tc);
     }
+
+    public static Game_Console get_console_by_code(List<Game_Console> list, String code) throws EquipmentCodeNotFoundException {
+
+        for (Game_Console console: list) {
+            if (console.getCode().equals(code))
+                return console;
+        }
+        throw new EquipmentCodeNotFoundException();
+    }
+
+    public static Game_Console get_console_by_code(String code) throws EquipmentCodeNotFoundException {
+
+        return get_console_by_code(console_list, code);
+    }
+
+    public static List<Game_Console> get_consoles_with_price_less(List<Game_Console> list, long price) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (console.getPrice() < price)
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_consoles_with_price_less(long price) {
+
+        return get_consoles_with_price_less(console_list, price);
+    }
+
+    public static List<Game_Console> get_consoles_with_price_more(List<Game_Console> list, long price) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (console.getPrice() > price)
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_consoles_with_price_more(long price) {
+
+        return get_consoles_with_price_more(console_list, price);
+    }
+
+    public static List<Game_Console> get_consoles_with_price_equal(List<Game_Console> list, long price) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (console.getPrice() == price)
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_consoles_with_price_equal(long price) {
+
+        return get_consoles_with_price_equal(console_list, price);
+    }
+
+    public static List<Game_Console> get_consoles_with_type(List<Game_Console> list, Console_Type ct) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (console.getConsole_type().equals(ct))
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_consoles_with_type(Console_Type ct) {
+
+        return get_consoles_with_type(console_list, ct);
+    }
+
+    public static List<Game_Console> get_vip_consoles(List<Game_Console> list) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (console.is_vip())
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_vip_consoles() {
+
+        return get_vip_consoles(console_list);
+    }
+
 }
