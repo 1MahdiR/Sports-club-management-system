@@ -37,7 +37,7 @@ public class database_test {
             System.out.println(e);
         }
         try {
-            r2 = new Reservation(user_1, eq, d, dg);
+            r2 = new Reservation(user_2, eq, d, dg);
         } catch (Exception e) {
             r2 = null;
             System.out.println(e);
