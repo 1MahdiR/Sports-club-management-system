@@ -193,6 +193,38 @@ public class database_test {
         System.out.println(Database.get_tables_with_class(Table_Class.A));
         System.out.println(Database.get_tables_with_class(Table_Class.C));
         System.out.println();
-        
+        // Game console read
+        Game_Console gc3 = new Game_Console("C-first", 1500, Console_Type.PS4, true);
+        Game_Console gc4 = new Game_Console("C-second", 2000, Console_Type.PS5, false);
+        Database.insert_equipment(gc3);
+        Database.insert_equipment(gc4);
+        try {
+            System.out.println(Database.get_console_by_code("C-first"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_table_by_code("C-second"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_table_by_code("C-third"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        System.out.println(Database.get_consoles_with_price_less(2000));
+        System.out.println(Database.get_consoles_with_price_less(1500));
+        System.out.println(Database.get_consoles_with_price_more(1000));
+        System.out.println(Database.get_consoles_with_price_more(1500));
+        System.out.println(Database.get_consoles_with_price_equal(1000));
+        System.out.println(Database.get_consoles_with_price_equal(1500));
+        System.out.println(Database.get_consoles_with_type(Console_Type.PS4));
+        System.out.println(Database.get_consoles_with_type(Console_Type.XBOX_ONE));
+        System.out.println(Database.get_consoles_with_type(Console_Type.XBOX_ONE_X));
+        System.out.println(Database.get_vip_consoles());
+        System.out.println(Database.get_vip_consoles(Database.get_consoles_with_type(Console_Type.PS4)));
+        System.out.println();
+
     }
 }
