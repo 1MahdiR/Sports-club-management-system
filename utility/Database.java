@@ -6,6 +6,7 @@ import club.Equipment;
 import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
+import custom_exceptions.UserIdNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,4 +46,77 @@ public class Database {
         reservation_list.add(reservation);
     }
 
+    public static User get_user_by_id(List<User> list, String id) throws UserIdNotFoundException {
+
+        for (User user: list) {
+            if (user.getId() == id)
+                return user;
+        }
+        throw new UserIdNotFoundException();
+    }
+
+    public static User get_user_by_id(String id) throws UserIdNotFoundException {
+
+        return get_user_by_id(user_list, id);
+    }
+
+    public static List<User> get_users_by_name(List<User> list, String name) {
+
+        List<User> temp = new ArrayList<User>();
+        for (User user: list) {
+            if (user.getName().toLowerCase() == name.toLowerCase())
+                temp.add(user);
+        }
+        return temp;
+    }
+
+    public static List<User> get_users_by_name(String name) {
+
+        return get_users_by_name(user_list, name);
+    }
+
+    public static List<User> get_users_with_debt_less(List<User> list, long debt) {
+
+        List<User> temp = new ArrayList<User>();
+        for (User user: list) {
+            if (user.getDebt() < debt)
+                temp.add(user);
+        }
+        return temp;
+    }
+
+    public static List<User> get_users_with_debt_less(long debt) {
+
+        return get_users_with_debt_less(user_list, debt);
+    }
+
+    public static List<User> get_users_with_debt_more(List<User> list, long debt) {
+
+        List<User> temp = new ArrayList<User>();
+        for (User user: list) {
+            if (user.getDebt() > debt)
+                temp.add(user);
+        }
+        return temp;
+    }
+
+    public static List<User> get_users_with_debt_more(long debt) {
+
+        return get_users_with_debt_more(user_list, debt);
+    }
+
+    public static List<User> get_users_with_debt_equal(List<User> list, long debt) {
+
+        List<User> temp = new ArrayList<User>();
+        for (User user: list) {
+            if (user.getDebt() == debt)
+                temp.add(user);
+        }
+        return temp;
+    }
+
+    public static List<User> get_users_with_debt_equal(long debt) {
+
+        return get_users_with_debt_equal(user_list, debt);
+    }
 }
