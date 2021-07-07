@@ -750,4 +750,19 @@ public class Database {
         List<User> list = getUser_list();
         list.remove(user);
     }
+
+    public static void delete_field(String code) {
+
+        Game_Field field;
+        try {
+            field = get_field_by_code(code);
+        } catch (EquipmentCodeNotFoundException e) {
+            return;
+        }
+
+        List<Game_Field> list = getField_list();
+        list.remove(field);
+    }
+
+
 }
