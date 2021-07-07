@@ -8,6 +8,8 @@ import club.Game_Field;
 import club.Game_Table;
 import club.enums.Field_Class;
 import club.enums.Field_Type;
+import club.enums.Table_Class;
+import club.enums.Table_Type;
 import custom_exceptions.EquipmentCodeNotFoundException;
 import custom_exceptions.UserIdNotFoundException;
 
@@ -314,5 +316,94 @@ public class Database {
     public static List<Game_Field> get_fields_with_class(Field_Class fc) {
 
         return get_fields_with_class(field_list, fc);
+    }
+
+    public static Game_Table get_table_by_code(List<Game_Table> list, String code) throws EquipmentCodeNotFoundException {
+
+        for (Game_Table table: list) {
+            if (table.getCode().equals(code))
+                return table;
+        }
+        throw new EquipmentCodeNotFoundException();
+    }
+
+    public static Game_Table get_table_by_code(String code) throws EquipmentCodeNotFoundException {
+
+        return get_table_by_code(table_list, code);
+    }
+
+    public static List<Game_Table> get_tables_with_price_less(List<Game_Table> list, long price) {
+
+        List<Game_Table> temp = new ArrayList<Game_Table>();
+        for (Game_Table table: list) {
+            if (table.getPrice() < price)
+                temp.add(table);
+        }
+        return temp;
+    }
+
+    public static List<Game_Table> get_tables_with_price_less(long price) {
+
+        return get_tables_with_price_less(table_list, price);
+    }
+
+    public static List<Game_Table> get_tables_with_price_more(List<Game_Table> list, long price) {
+
+        List<Game_Table> temp = new ArrayList<Game_Table>();
+        for (Game_Table table: list) {
+            if (table.getPrice() > price)
+                temp.add(table);
+        }
+        return temp;
+    }
+
+    public static List<Game_Table> get_tables_with_price_more(long price) {
+
+        return get_tables_with_price_more(table_list, price);
+    }
+
+    public static List<Game_Table> get_tables_with_price_equal(List<Game_Table> list, long price) {
+
+        List<Game_Table> temp = new ArrayList<Game_Table>();
+        for (Game_Table table: list) {
+            if (table.getPrice() == price)
+                temp.add(table);
+        }
+        return temp;
+    }
+
+    public static List<Game_Table> get_tables_with_price_equal(long price) {
+
+        return get_tables_with_price_equal(table_list, price);
+    }
+
+    public static List<Game_Table> get_tables_with_type(List<Game_Table> list, Table_Type tt) {
+
+        List <Game_Table> temp = new ArrayList<Game_Table>();
+        for (Game_Table table: list) {
+            if (table.getTable_type().equals(tt))
+                temp.add(table);
+        }
+        return temp;
+    }
+
+    public static List<Game_Table> get_tables_with_type(Table_Type tt) {
+
+        return get_tables_with_type(table_list, tt);
+    }
+
+    public static List<Game_Table> get_tables_with_class(List<Game_Table> list, Table_Class tc) {
+
+        List <Game_Table> temp = new ArrayList<Game_Table>();
+        for (Game_Table table: list) {
+            if (table.getTable_class().equals(tc))
+                temp.add(table);
+        }
+        return temp;
+    }
+
+    public static List<Game_Table> get_tables_with_class(Table_Class tc) {
+
+        return get_tables_with_class(table_list, tc);
     }
 }
