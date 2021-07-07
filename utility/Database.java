@@ -493,6 +493,21 @@ public class Database {
         return get_vip_consoles(console_list);
     }
 
+    public static List<Game_Console> get_not_vip_consoles(List<Game_Console> list) {
+
+        List<Game_Console> temp = new ArrayList<Game_Console>();
+        for (Game_Console console: list) {
+            if (!console.is_vip())
+                temp.add(console);
+        }
+        return temp;
+    }
+
+    public static List<Game_Console> get_not_vip_consoles() {
+
+        return get_not_vip_consoles(console_list);
+    }
+
     public static Reservation get_reservation_by_id(List<Reservation> list, String id) throws ReservationIdNotFoundException {
 
         for (Reservation reservation: list) {
