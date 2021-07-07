@@ -6,6 +6,7 @@ import club.Equipment;
 import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
+import custom_exceptions.EquipmentCodeNotFoundException;
 import custom_exceptions.UserIdNotFoundException;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Database {
     public static User get_user_by_id(List<User> list, String id) throws UserIdNotFoundException {
 
         for (User user: list) {
-            if (user.getId() == id)
+            if (user.getId().equals(id))
                 return user;
         }
         throw new UserIdNotFoundException();
@@ -64,7 +65,7 @@ public class Database {
 
         List<User> temp = new ArrayList<User>();
         for (User user: list) {
-            if (user.getName().toLowerCase() == name.toLowerCase())
+            if (user.getName().equalsIgnoreCase(name))
                 temp.add(user);
         }
         return temp;
@@ -118,5 +119,64 @@ public class Database {
     public static List<User> get_users_with_debt_equal(long debt) {
 
         return get_users_with_debt_equal(user_list, debt);
+    }
+
+    public static Equipment get_equipment_by_code(List<Equipment> list, String code) throws EquipmentCodeNotFoundException {
+
+        for (Equipment equipment: list) {
+            if (equipment.getCode().equals(code))
+                return equipment;
+        }
+        throw new EquipmentCodeNotFoundException();
+    }
+
+    public static Equipment get_equipment_by_code(String code) throws EquipmentCodeNotFoundException {
+
+        return get_equipment_by_code(equipment_list, code);
+    }
+
+    public static List<Equipment> get_equipments_with_price_less(List<Equipment> list, long price) {
+
+        List<Equipment> temp = new ArrayList<Equipment>();
+        for (Equipment equipment: list) {
+            if (equipment.getPrice() < price)
+                temp.add(equipment);
+        }
+        return temp;
+    }
+
+    public static List<Equipment> get_equipments_with_price_less(long price) {
+
+        return get_equipments_with_price_less(equipment_list, price);
+    }
+
+    public static List<Equipment> get_equipments_with_price_more(List<Equipment> list, long price) {
+
+        List<Equipment> temp = new ArrayList<Equipment>();
+        for (Equipment equipment: list) {
+            if (equipment.getPrice() > price)
+                temp.add(equipment);
+        }
+        return temp;
+    }
+
+    public static List<Equipment> get_equipments_with_price_more(long price) {
+
+        return get_equipments_with_price_more(equipment_list, price);
+    }
+
+    public static List<Equipment> get_equipments_with_price_equal(List<Equipment> list, long price) {
+
+        List<Equipment> temp = new ArrayList<Equipment>();
+        for (Equipment equipment: list) {
+            if (equipment.getPrice() == price)
+                temp.add(equipment);
+        }
+        return temp;
+    }
+
+    public static List<Equipment> get_equipments_with_price_equal(long price) {
+
+        return get_equipments_with_price_equal(equipment_list, price);
     }
 }
