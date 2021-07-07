@@ -13,6 +13,7 @@ import javax.xml.crypto.Data;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class database_test {
 
@@ -318,6 +319,27 @@ public class database_test {
         System.out.println(Database.get_not_paid_reservations());
         System.out.println(Database.get_past_reservations());
         System.out.println(Database.get_next_reservations());
+        System.out.println();
+        /////// UPDATE
+        // Reservation update
+        Reservation r;
+        try {
+            r = new Reservation("R-update", user_1, gf1, d_later, due_1);
+            GregorianCalendar g_test = new GregorianCalendar(2022, 8, 10, 18, 20);
+            Date d_g_test = g_test.getTime();
+            Database.insert_reservation(r);
+            System.out.println(Database.getReservation_list());
+            Reservation r_2 = Database.get_reservation_by_id("R-update");
+            System.out.println("Date before changing:");
+            System.out.println(r_2.getReserve_date());
+            r_2.change_reserve_date(d_g_test);
+            Reservation r_3 = Database.get_reservation_by_id("R-update");
+            System.out.println("Date after changing:");
+            System.out.println(r_3.getReserve_date());
+        } catch (Exception e) {
+            System.out.println("Something happened");
+            r = null;
+        }
         System.out.println();
 
     }
