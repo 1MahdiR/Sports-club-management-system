@@ -351,6 +351,11 @@ public class database_test {
         Database.delete_user("Hadi-H");
         System.out.println(Database.getUser_list());
         System.out.println();
+        // Field delete
+        System.out.println(Database.getField_list());
+        Database.delete_field("F-first");
+        System.out.println(Database.getField_list());
+        System.out.println();
 
     }
 }
