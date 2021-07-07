@@ -361,6 +361,11 @@ public class database_test {
         Database.delete_table("T-second");
         System.out.println(Database.getTable_list());
         System.out.println();
-        
+        // Console delete
+        System.out.println(Database.getConsole_list());
+        Database.delete_console("C-first");
+        System.out.println(Database.getConsole_list());
+        System.out.println();
+
     }
 }
