@@ -73,5 +73,37 @@ public class database_test {
         System.out.println(Database.getReservation_list());
         System.out.println();
 
+        /////// READ
+        // User read
+        r1.pay();
+        r2.pay();
+        User user_3 = new User("Hadi-R", "Hadi");
+        User user_4 = new User("Hadi-H", "Hadi");
+        Database.insert_user(user_3);
+        Database.insert_user(user_4);
+        try {
+            System.out.println(Database.get_user_by_id("Hadi-R"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_user_by_id("Hadi-H"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_user_by_id("Hadi-M"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        System.out.println(Database.get_users_by_name("Hadi"));
+        System.out.println(Database.get_users_by_name("Mahdi"));
+        System.out.println(Database.get_users_with_debt_less(2500));
+        System.out.println(Database.get_users_with_debt_less(2501));
+        System.out.println(Database.get_users_with_debt_more(2400));
+        System.out.println(Database.get_users_with_debt_more(2500));
+        System.out.println(Database.get_users_with_debt_equal(2500));
+        System.out.println(Database.get_users_with_debt_equal(2600));
+        System.out.println(Database.get_users_by_name(Database.get_users_with_debt_more(2400), "Ali"));
     }
 }
