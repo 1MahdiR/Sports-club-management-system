@@ -356,6 +356,11 @@ public class database_test {
         Database.delete_field("F-first");
         System.out.println(Database.getField_list());
         System.out.println();
-
+        // Table delete
+        System.out.println(Database.getTable_list());
+        Database.delete_table("T-second");
+        System.out.println(Database.getTable_list());
+        System.out.println();
+        
     }
 }
