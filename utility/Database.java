@@ -726,4 +726,15 @@ public class Database {
         return get_next_reservations(reservation_list);
     }
 
+    public static void change_reservation_reserve_date(String id, Date date) {
+
+        Reservation r;
+        try {
+            r = get_reservation_by_id(id);
+        } catch (ReservationIdNotFoundException e) {
+            return;
+        }
+
+        r.change_reserve_date(date);
+    }
 }
