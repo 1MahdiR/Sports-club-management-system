@@ -776,4 +776,18 @@ public class Database {
         List<Game_Table> list = getTable_list();
         list.remove(table);
     }
+
+    public static void delete_console(String code) {
+
+        Game_Console console;
+        try {
+            console = get_console_by_code(code);
+        } catch (EquipmentCodeNotFoundException e) {
+            return;
+        }
+
+        List<Game_Console> list = getConsole_list();
+        list.remove(console);
+    }
+    
 }
