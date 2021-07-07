@@ -6,6 +6,8 @@ import club.Equipment;
 import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
+import club.enums.Field_Class;
+import club.enums.Field_Type;
 import custom_exceptions.EquipmentCodeNotFoundException;
 import custom_exceptions.UserIdNotFoundException;
 
@@ -178,5 +180,139 @@ public class Database {
     public static List<Equipment> get_equipments_with_price_equal(long price) {
 
         return get_equipments_with_price_equal(equipment_list, price);
+    }
+
+    public static Game_Field get_field_by_code(List<Game_Field> list, String code) throws EquipmentCodeNotFoundException {
+
+        for (Game_Field field: list) {
+            if (field.getCode().equals(code))
+                return field;
+        }
+        throw new EquipmentCodeNotFoundException();
+    }
+
+    public static Game_Field get_field_by_code(String code) throws EquipmentCodeNotFoundException {
+
+        return get_field_by_code(field_list, code);
+    }
+
+    public static List<Game_Field> get_fields_with_price_less(List<Game_Field> list, long price) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getPrice() < price)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_price_less(long price) {
+
+        return get_fields_with_price_less(field_list, price);
+    }
+
+    public static List<Game_Field> get_fields_with_price_more(List<Game_Field> list, long price) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getPrice() > price)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_price_more(long price) {
+
+        return get_fields_with_price_more(field_list, price);
+    }
+
+    public static List<Game_Field> get_fields_with_price_equal(List<Game_Field> list, long price) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getPrice() == price)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_price_equal(long price) {
+
+        return get_fields_with_price_equal(field_list, price);
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_less(List<Game_Field> list, int capacity) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getCapacity() < capacity)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_less(int capacity) {
+
+        return get_fields_with_capacity_less(field_list, capacity);
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_more(List<Game_Field> list, int capacity) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getCapacity() > capacity)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_more(int capacity) {
+
+        return get_fields_with_capacity_more(field_list, capacity);
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_equal(List<Game_Field> list, int capacity) {
+
+        List<Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getCapacity() == capacity)
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_capacity_equal(int capacity) {
+
+        return get_fields_with_capacity_equal(field_list, capacity);
+    }
+
+    public static List<Game_Field> get_fields_with_type(List<Game_Field> list, Field_Type ft) {
+
+        List <Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getField_type().equals(ft))
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_type(Field_Type ft) {
+
+        return get_fields_with_type(field_list, ft);
+    }
+
+    public static List<Game_Field> get_fields_with_class(List<Game_Field> list, Field_Class fc) {
+
+        List  <Game_Field> temp = new ArrayList<Game_Field>();
+        for (Game_Field field: list) {
+            if (field.getField_class().equals(fc))
+                temp.add(field);
+        }
+        return temp;
+    }
+
+    public static List<Game_Field> get_fields_with_class(Field_Class fc) {
+
+        return get_fields_with_class(field_list, fc);
     }
 }
