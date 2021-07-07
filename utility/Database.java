@@ -764,5 +764,16 @@ public class Database {
         list.remove(field);
     }
 
+    public static void delete_table(String code) {
 
+        Game_Table table;
+        try {
+            table = get_table_by_code(code);
+        } catch (EquipmentCodeNotFoundException e) {
+            return;
+        }
+
+        List<Game_Table> list = getTable_list();
+        list.remove(table);
+    }
 }
