@@ -9,6 +9,7 @@ import club.Game_Table;
 import club.enums.*;
 import utility.Database;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -105,5 +106,35 @@ public class database_test {
         System.out.println(Database.get_users_with_debt_equal(2500));
         System.out.println(Database.get_users_with_debt_equal(2600));
         System.out.println(Database.get_users_by_name(Database.get_users_with_debt_more(2400), "Ali"));
+        System.out.println();
+        // Equipment read
+        Equipment eq1 = new Equipment("eq-1", 500);
+        Equipment eq2 = new Equipment("eq-2", 1000);
+        Equipment eq3 = new Equipment("eq-3", 2500);
+        Database.insert_equipment(eq1);
+        Database.insert_equipment(eq2);
+        Database.insert_equipment(eq3);
+        try {
+            System.out.println(Database.get_equipment_by_code("eq-1"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_equipment_by_code("eq-2"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_equipment_by_code("eq-4"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        System.out.println(Database.get_equipments_with_price_less(2000));
+        System.out.println(Database.get_equipments_with_price_less(400));
+        System.out.println(Database.get_equipments_with_price_more(500));
+        System.out.println(Database.get_equipments_with_price_more(2500));
+        System.out.println(Database.get_equipments_with_price_equal(1000));
+        System.out.println(Database.get_equipments_with_price_equal(1200));
+        System.out.println(Database.get_equipments_with_price_less(Database.get_equipments_with_price_more(500), 2500));
     }
 }
