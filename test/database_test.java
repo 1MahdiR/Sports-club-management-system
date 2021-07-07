@@ -10,7 +10,7 @@ import club.enums.*;
 import utility.Database;
 
 import javax.xml.crypto.Data;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -340,6 +340,16 @@ public class database_test {
             System.out.println("Something happened");
             r = null;
         }
+        System.out.println();
+        /////// DELETE
+        // User delete
+        System.out.println(Database.getUser_list());
+        Database.delete_user("Dalam");
+        System.out.println(Database.getUser_list());
+        Database.delete_user("Hadi-R");
+        System.out.println(Database.getUser_list());
+        Database.delete_user("Hadi-H");
+        System.out.println(Database.getUser_list());
         System.out.println();
 
     }
