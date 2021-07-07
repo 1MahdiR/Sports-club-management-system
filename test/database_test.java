@@ -10,6 +10,7 @@ import club.enums.*;
 import utility.Database;
 
 import javax.xml.crypto.Data;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -225,6 +226,98 @@ public class database_test {
         System.out.println(Database.get_vip_consoles());
         System.out.println(Database.get_vip_consoles(Database.get_consoles_with_type(Console_Type.PS4)));
         System.out.println();
+        // Reservation read
+        User user_5 = new User("hos", "Hossein");
+        User user_6 = new User("mam", "Mamad");
+        Equipment eq5 = new Equipment("eq5", 1000);
+        Equipment eq6 = new Equipment("eq6", 1500);
+        Game_Field gf5 = new Game_Field("gf5", 2500, 150, Field_Type.BASKETBALL, Field_Class.B);
+        GregorianCalendar later = new GregorianCalendar(2021, 6, 8, 20, 15);
+        Date d_later = later.getTime();
+        GregorianCalendar g_due_1 = new GregorianCalendar(0,0,1,1,45);
+        GregorianCalendar g_due_2 = new GregorianCalendar(0,0,0,2,30);
+        Date due_1 = g_due_1.getTime();
+        Date due_2 = g_due_2.getTime();
+        Date now = new Date();
+        Reservation r3;
+        Reservation r4;
+        Reservation r5;
+        try {
+            r3 = new Reservation("R-first", user_5, eq5, now, due_1);
+        } catch (Exception e) {
+            System.out.println("Something happened!");
+            r3 = null;
+        }
+        try {
+            r4 = new Reservation("R-second", user_6, eq5, now, due_2);
+        } catch (Exception e) {
+            System.out.println("Something happened!");
+            r4 = null;
+        }
+        try {
+            r5 = new Reservation("R-third", user_5, gf5, d_later, due_1);
+        } catch (Exception e) {
+            System.out.println("Something happened!");
+            r5 = null;
+        }
 
+        Database.insert_reservation(r3);
+        Database.insert_reservation(r4);
+        Database.insert_reservation(r5);
+
+        try {
+            System.out.println(Database.get_reservation_by_id("R-first"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_reservation_by_id("R-third"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_reservation_by_id("R-fourth"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+
+        System.out.println(Database.get_reservations_with_user(user_5));
+        System.out.println(Database.get_reservations_with_user(user_6));
+        System.out.println(Database.get_reservations_with_user(user_2));
+        System.out.println(Database.get_reservations_with_equipment(eq5));
+        System.out.println(Database.get_reservations_with_equipment(eq6));
+        System.out.println(Database.get_reservations_with_equipment(gf5));
+        System.out.println("now test");
+        System.out.println(Database.get_reservations_with_reserve_date(new Date()));
+        GregorianCalendar test = new GregorianCalendar(2021, 6, 8, 20, 15);
+        Date d_test = test.getTime();
+        System.out.println(Database.get_reservations_with_reserve_date(d_test));
+        GregorianCalendar due_test_2 = new GregorianCalendar(0,1,0,2,30);
+        Date d_due_test_2 = due_test_2.getTime();
+        GregorianCalendar due_test_1 = new GregorianCalendar(1,1,1,1,45);
+        Date d_due_test_1 = due_test_1.getTime();
+        System.out.println("d_due_test_1");
+        System.out.println(Database.get_reservations_with_reserve_duration(d_due_test_1));
+        System.out.println("d_due_test_2");
+        System.out.println(Database.get_reservations_with_reserve_duration(d_due_test_2));
+        System.out.println(Database.get_reservations_with_total_price_less(1700));
+        System.out.println(Database.get_reservations_with_total_price_less(2600));
+        System.out.println("total price more than 2400");
+        System.out.println(Database.get_reservations_with_total_price_more(2400));
+        System.out.println(Database.get_reservations_with_total_price_more(2600));
+        System.out.println(Database.get_reservations_with_total_price_equal(2500));
+        System.out.println(Database.get_reservations_with_total_price_equal(1200));
+        System.out.println(Database.get_reservations_with_submit_date(now));
+        System.out.println(Database.get_reservations_with_submit_date(d_later));
+        System.out.println(Database.get_paid_reservations());
+        r5.pay();
+        System.out.println(Database.get_paid_reservations());
+        r4.pay();
+        System.out.println(Database.get_paid_reservations());
+        System.out.println(Database.get_not_paid_reservations());
+        System.out.println(Database.get_past_reservations());
+        System.out.println(Database.get_next_reservations());
+        System.out.println();
+        
     }
 }
