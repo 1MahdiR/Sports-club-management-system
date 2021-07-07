@@ -225,6 +225,7 @@ public class database_test {
         System.out.println(Database.get_consoles_with_type(Console_Type.XBOX_ONE_X));
         System.out.println(Database.get_vip_consoles());
         System.out.println(Database.get_vip_consoles(Database.get_consoles_with_type(Console_Type.PS4)));
+        System.out.println(Database.get_not_vip_consoles());
         System.out.println();
         // Reservation read
         User user_5 = new User("hos", "Hossein");
@@ -318,6 +319,6 @@ public class database_test {
         System.out.println(Database.get_past_reservations());
         System.out.println(Database.get_next_reservations());
         System.out.println();
-        
+
     }
 }
