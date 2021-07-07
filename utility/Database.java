@@ -737,4 +737,17 @@ public class Database {
 
         r.change_reserve_date(date);
     }
+
+    public static void delete_user(String id) {
+
+        User user;
+        try {
+            user = get_user_by_id(id);
+        } catch (UserIdNotFoundException e) {
+            return;
+        }
+
+        List<User> list = getUser_list();
+        list.remove(user);
+    }
 }
