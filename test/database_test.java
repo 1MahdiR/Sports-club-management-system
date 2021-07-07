@@ -9,6 +9,7 @@ import club.Game_Table;
 import club.enums.*;
 import utility.Database;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -165,6 +166,32 @@ public class database_test {
         System.out.println(Database.get_fields_with_type(Field_Type.HANDBALL));
         System.out.println(Database.get_fields_with_class(Field_Class.A));
         System.out.println(Database.get_fields_with_class(Field_Class.D));
+        System.out.println();
+        // Game table read
+        Game_Table gt1 = new Game_Table("T-first", 1500, Table_Type.FOOSBALL, Table_Class.B);
+        Game_Table gt2 = new Game_Table("T-second", 1000, Table_Type.PINGPONG, Table_Class.C);
+        Database.insert_equipment(gt1);
+        Database.insert_equipment(gt2);
+        try {
+            System.out.println(Database.get_table_by_code("T-second"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        try {
+            System.out.println(Database.get_table_by_code("T-third"));
+        } catch (Exception e) {
+            System.out.println("Not found!");
+        }
+        System.out.println(Database.get_tables_with_price_less(1500));
+        System.out.println(Database.get_tables_with_price_less(1600));
+        System.out.println(Database.get_tables_with_price_more(1000));
+        System.out.println(Database.get_tables_with_price_more(1500));
+        System.out.println(Database.get_tables_with_price_equal(1500));
+        System.out.println(Database.get_tables_with_price_equal(1000));
+        System.out.println(Database.get_tables_with_type(Table_Type.FOOSBALL));
+        System.out.println(Database.get_tables_with_type(Table_Type.POOL));
+        System.out.println(Database.get_tables_with_class(Table_Class.A));
+        System.out.println(Database.get_tables_with_class(Table_Class.C));
         System.out.println();
         
     }
