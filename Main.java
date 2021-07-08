@@ -5,10 +5,10 @@ import club.Game_Console;
 import club.Game_Field;
 import club.Game_Table;
 import club.enums.*;
+import custom_exceptions.*;
 import utility.Database;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -22,8 +22,8 @@ public class Main {
         System.out.println("| 4.Show all equipments  |");
         System.out.println("| 5.Show all reservations|");
         System.out.println("| 6.Show all clients     |");
-        System.out.println("| 7.Edit equipments      |");
-        System.out.println("| 8.Edit reservations    |");
+        System.out.println("| 7.Manage reservations  |");
+        System.out.println("| 8.Manage clients       |");
         System.out.println("| 9.Exit                 |");
         System.out.println("|                        |");
         System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
@@ -115,6 +115,29 @@ public class Main {
         System.out.print("\n>");
     }
 
+    private static void show_reservation_edit_options() {
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.println("| Choose an option       |");
+        System.out.println("|                        |");
+        System.out.println("| 1.Change reservation   |");
+        System.out.println("| 2.Pay reservation      |");
+        System.out.println("| 3.Return               |");
+        System.out.println("|                        |");
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.print("\n>");
+    }
+
+    private static void show_user_edit_options() {
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.println("| Choose an option       |");
+        System.out.println("|                        |");
+        System.out.println("| 1.Pay debt             |");
+        System.out.println("| 2.Return               |");
+        System.out.println("|                        |");
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.print("\n>");
+    }
+
     private static void clear_screen() {
         System.out.print("\033[H\033[2J");
     }
@@ -123,6 +146,138 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println(message);
         scanner.nextLine();
+    }
+
+    private static void make_reservation() {
+        Scanner scan = new Scanner(System.in);
+        String reply;
+
+        clear_screen();
+        System.out.println("Enter a unique id for reservation (Enter nothing to generate a unique id):");
+        System.out.print(">");
+        boolean id_empty;
+        String id = scan.nextLine();
+        clear_screen();
+        if (id.contains(" ")) {
+            show_message("Reservation id must not contain space character.\nAborted!");
+            return;
+        }
+        id_empty = id.isEmpty();
+        System.out.println("Enter the user id of client:");
+        System.out.print(">");
+        String userId = scan.nextLine().trim();
+
+        User user;
+        try {
+            user = Database.get_user_by_id(userId);
+        } catch (UserIdNotFoundException e) {
+            show_message("This user does not exist.\nAborted!");
+            return;
+        }
+
+        clear_screen();
+        System.out.println("Enter the equipment code:");
+        System.out.print(">");
+        String equipmentCode = scan.nextLine().trim();
+
+        Equipment equipment;
+        try {
+            equipment = Database.get_equipment_by_code(equipmentCode);
+        } catch (EquipmentCodeNotFoundException e) {
+            show_message("This equipment does not exist.\nAborted!");
+            return;
+        }
+
+        clear_screen();
+        Date reservation_date;
+        if (equipment instanceof Game_Field) {
+
+            System.out.println("Enter the reservation date:");
+            int year, month, day, hour, minute;
+            try {
+                System.out.print("Year>");
+                year = Integer.parseInt(scan.nextLine());
+                if (year < 0)
+                    throw new Exception();
+                System.out.print("Month>");
+                month = Integer.parseInt(scan.nextLine());
+                if (month < 1 || month > 12)
+                    throw new Exception();
+                System.out.print("Day>");
+                day = Integer.parseInt(scan.nextLine());
+                if (day < 1 || day > 31)
+                    throw new Exception();
+                System.out.print("Hour>");
+                hour = Integer.parseInt(scan.nextLine());
+                if (hour < 0 || hour > 23)
+                    throw new Exception();
+                System.out.print("Minute>");
+                minute = Integer.parseInt(scan.nextLine());
+                if (minute < 0 || minute > 59)
+                    throw new Exception();
+
+                GregorianCalendar g = new GregorianCalendar(year, month-1, day, hour, minute);
+                reservation_date = g.getTime();
+
+            } catch (Exception e) {
+                show_message("Invalid input!\nAborted!");
+                return;
+            }
+        } else {
+            reservation_date = new Date();
+        }
+        clear_screen();
+        Date duration;
+        System.out.println("Enter the duration of reservation (max: 5h 59m):");
+        int hour, minute;
+        try {
+            System.out.print("Hour>");
+            hour = Integer.parseInt(scan.nextLine());
+            if (hour < 0 || hour > 5)
+                throw new Exception();
+            System.out.print("Minute>");
+            minute = Integer.parseInt(scan.nextLine());
+            if (minute < 0 || minute > 59)
+                throw new Exception();
+
+            GregorianCalendar g = new GregorianCalendar(0, 0, 0, hour, minute);
+            duration = g.getTime();
+
+        } catch (Exception e) {
+            show_message("Invalid input!\nAborted!");
+            return;
+        }
+        GregorianCalendar g = new GregorianCalendar();
+        g.setTime(duration);
+
+        clear_screen();
+        System.out.printf("Reservation id: %s\nReservation user: %s\nReservation equipment: %s\nReservation reserve date: %s\nReservation duration: %d:%d\n\n", id, user.getId(), equipment.getCode(), reservation_date, g.get(Calendar.HOUR), g.get(Calendar.MINUTE));
+        System.out.println("Are you sure? [Y/n]");
+        System.out.print(">");
+        reply = scan.nextLine();
+
+        if (reply.trim().equalsIgnoreCase("n")){
+            clear_screen();
+            show_message("Aborted!");
+            return;
+        }
+
+        clear_screen();
+        Reservation reservation;
+        try {
+            if (id_empty)
+                reservation = new Reservation(user, equipment, reservation_date, duration);
+            else
+                reservation = new Reservation(id, user, equipment, reservation_date, duration);
+        } catch (ReservationDatePassedException | DurationLimitException e) {
+            show_message("Reservation date has passed\nAborted!");
+            return;
+        }
+
+        Database.insert_reservation(reservation);
+        System.out.println("Reservation has been successfully added to database.");
+        scan.nextLine();
+
     }
 
     private static void add_equipment() {
@@ -534,6 +689,132 @@ public class Main {
         System.out.println();
     }
 
+    private static void edit_reservations() {
+        Scanner scan = new Scanner(System.in);
+        String reply;
+        clear_screen();
+        System.out.println("Enter the id of reservation you want to edit:");
+        System.out.print(">");
+        String reservationId = scan.nextLine().trim();
+
+        Reservation reservation;
+        try {
+            reservation = Database.get_reservation_by_id(reservationId);
+        } catch (ReservationIdNotFoundException e) {
+            show_message("This reservation does not exist.\nAborted!");
+            return;
+        }
+
+        while (true) {
+            clear_screen();
+            System.out.println(reservation);
+            System.out.println();
+            show_reservation_edit_options();
+            String menu_reply = scan.nextLine();
+            if (menu_reply.equals("1")) {
+                clear_screen();
+                Date reservation_date;
+                System.out.println("Enter the reservation date:");
+                int year, month, day, hour, minute;
+                try {
+                    System.out.print("Year>");
+                    year = Integer.parseInt(scan.nextLine());
+                    if (year < 0)
+                        throw new Exception();
+                    System.out.print("Month>");
+                    month = Integer.parseInt(scan.nextLine());
+                    if (month < 1 || month > 12)
+                        throw new Exception();
+                    System.out.print("Day>");
+                    day = Integer.parseInt(scan.nextLine());
+                    if (day < 1 || day > 31)
+                        throw new Exception();
+                    System.out.print("Hour>");
+                    hour = Integer.parseInt(scan.nextLine());
+                    if (hour < 0 || hour > 23)
+                        throw new Exception();
+                    System.out.print("Minute>");
+                    minute = Integer.parseInt(scan.nextLine());
+                    if (minute < 0 || minute > 59)
+                        throw new Exception();
+
+                    GregorianCalendar g = new GregorianCalendar(year, month-1, day, hour, minute);
+                    reservation_date = g.getTime();
+
+                } catch (Exception e) {
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+                Database.change_reservation_reserve_date(reservation.getId(), reservation_date);
+                clear_screen();
+                show_message("Reservation date has been successfully updated!");
+                return;
+            }
+            if (menu_reply.equals("2")) {
+                reservation.pay();
+                clear_screen();
+                show_message("Reservation is paid. check user's info for final checkout.");
+                return;
+            }
+            if (menu_reply.equals("3"))
+                return;
+        }
+
+    }
+
+    private static void edit_clients() {
+        Scanner scan = new Scanner(System.in);
+        String reply;
+        clear_screen();
+        System.out.println("Enter the id of user you want to manage:");
+        System.out.print(">");
+        String userId = scan.nextLine().trim();
+
+        User user;
+        try {
+            user = Database.get_user_by_id(userId);
+        } catch (UserIdNotFoundException e) {
+            clear_screen();
+            show_message("This user does not exist.\nAborted!");
+            return;
+        }
+
+        while (true) {
+            clear_screen();
+            System.out.println(user);
+            System.out.println();
+            show_user_edit_options();
+            String menu_reply = scan.nextLine();
+            if (menu_reply.equals("1")) {
+                clear_screen();
+                long debt;
+                System.out.println("How much do you want to pay? :");
+                System.out.print(">");
+                try {
+                    debt = Long.parseLong(scan.nextLine());
+                    if (debt < 0)
+                        throw new Exception();
+
+                    if (debt > user.getDebt()) {
+                        clear_screen();
+                        show_message("This cash is more than client's debt!\nAborted!");
+                        return;
+                    }
+
+                } catch (Exception e) {
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+                user.pay_debt(debt);
+                clear_screen();
+                show_message("Paid successfully!");
+                return;
+            }
+            if (menu_reply.equals("2"))
+                return;
+        }
+    }
+
     public static void main(String[] args) {
         clear_screen();
         Scanner scan = new Scanner(System.in);
@@ -543,6 +824,9 @@ public class Main {
             String menu_reply = scan.nextLine();
 
             switch (menu_reply) {
+                case "1":
+                    make_reservation();
+                    break;
                 case "2":
                     add_equipment();
                     break;
@@ -560,6 +844,12 @@ public class Main {
                 case "6":
                     show_all_clients();
                     scan.nextLine();
+                    break;
+                case "7":
+                    edit_reservations();
+                    break;
+                case "8":
+                    edit_clients();
                     break;
                 case "9":
                     break label;
