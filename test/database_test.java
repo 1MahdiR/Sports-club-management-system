@@ -388,6 +388,12 @@ public class database_test {
         System.out.println(Database.getTable_list());
         System.out.println(Database.getConsole_list());
         System.out.println();
+        // Reservation delete
+        System.out.println(Database.getReservation_list());
+        Database.delete_reservation("R-second");
+        Database.delete_reservation("R-third");
+        System.out.println(Database.getReservation_list());
+        System.out.println();
 
     }
 }
