@@ -332,7 +332,7 @@ public class database_test {
             Reservation r_2 = Database.get_reservation_by_id("R-update");
             System.out.println("Date before changing:");
             System.out.println(r_2.getReserve_date());
-            r_2.change_reserve_date(d_g_test);
+            Database.change_reservation_reserve_date(r_2.getId(), d_g_test);
             Reservation r_3 = Database.get_reservation_by_id("R-update");
             System.out.println("Date after changing:");
             System.out.println(r_3.getReserve_date());
