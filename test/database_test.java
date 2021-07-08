@@ -353,17 +353,17 @@ public class database_test {
         System.out.println();
         // Field delete
         System.out.println(Database.getField_list());
-        Database.delete_field("F-first");
+        Database.delete_equipment("F-first");
         System.out.println(Database.getField_list());
         System.out.println();
         // Table delete
         System.out.println(Database.getTable_list());
-        Database.delete_table("T-second");
+        Database.delete_equipment("T-second");
         System.out.println(Database.getTable_list());
         System.out.println();
         // Console delete
         System.out.println(Database.getConsole_list());
-        Database.delete_console("C-first");
+        Database.delete_equipment("C-first");
         System.out.println(Database.getConsole_list());
         System.out.println();
         // Equipment delete

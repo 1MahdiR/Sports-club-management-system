@@ -751,7 +751,7 @@ public class Database {
         list.remove(user);
     }
 
-    public static void delete_field(String code) {
+    private static void delete_field(String code) {
 
         Game_Field field;
         try {
@@ -764,7 +764,7 @@ public class Database {
         list.remove(field);
     }
 
-    public static void delete_table(String code) {
+    private static void delete_table(String code) {
 
         Game_Table table;
         try {
@@ -777,7 +777,7 @@ public class Database {
         list.remove(table);
     }
 
-    public static void delete_console(String code) {
+    private static void delete_console(String code) {
 
         Game_Console console;
         try {
