@@ -137,8 +137,10 @@ public class Reservation {
         String id = getId();
         String user = getUser().toString();
         SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat date2_format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = date_format.format(getSubmit_date());
-        return String.format("<Reservation [id:%s]-[user:%s]-[submit date:%s]>", id, user, date);
+        String r_date = date2_format.format(getReserve_date());
+        return String.format("<Reservation [id:%s]-[user:%s]-[reservation date:%s]-[submit date:%s]-[total price:%d]-[paid:%s]>", id, user, r_date, date, getTotal_price(), isPaid());
     }
 
 }
