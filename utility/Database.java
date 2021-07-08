@@ -808,4 +808,18 @@ public class Database {
             return;
         }
     }
+
+    public static void delete_reservation(String id) {
+
+        Reservation reservation;
+        try {
+            reservation = get_reservation_by_id(id);
+        } catch (ReservationIdNotFoundException e) {
+            return;
+        }
+
+        List<Reservation> list = getReservation_list();
+        list.remove(reservation);
+    }
+
 }
