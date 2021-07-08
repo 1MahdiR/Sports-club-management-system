@@ -29,6 +29,8 @@ public class Database {
     public static List<Game_Console> getConsole_list() { return console_list; }
     public static List<Reservation> getReservation_list() { return reservation_list; }
 
+    private Database() {}
+
     public static void insert_user (User user) {
         user_list.add(user);
     }
