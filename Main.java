@@ -1,9 +1,9 @@
+import client.User;
 import club.Equipment;
 import club.Game_Console;
+import club.Game_Field;
 import club.Game_Table;
-import club.enums.Console_Type;
-import club.enums.Table_Class;
-import club.enums.Table_Type;
+import club.enums.*;
 import utility.Database;
 
 import java.util.Scanner;
@@ -34,6 +34,37 @@ public class Main {
         System.out.println("| 3.Game console         |");
         System.out.println("| 4.Other equipments     |");
         System.out.println("| 5.Return               |");
+        System.out.println("|                        |");
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.print("\n>");
+    }
+
+    private static void show_game_field_types() {
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.println("| Choose a type          |");
+        System.out.println("|                        |");
+        System.out.println("| 1.FOOTBALL             |");
+        System.out.println("| 2.FUTSAL               |");
+        System.out.println("| 3.VOLLEYBALL           |");
+        System.out.println("| 4.HANDBALL             |");
+        System.out.println("| 5.TENNIS               |");
+        System.out.println("| 6.HOCKEY               |");
+        System.out.println("| 7.BASKETBALL           |");
+        System.out.println("| 8.BASEBALL             |");
+        System.out.println("| 9.SOCCER               |");
+        System.out.println("|                        |");
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.print("\n>");
+    }
+
+    private static void show_game_field_classes() {
+        System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
+        System.out.println("| Choose a class         |");
+        System.out.println("|                        |");
+        System.out.println("| 1.A                    |");
+        System.out.println("| 2.B                    |");
+        System.out.println("| 3.C                    |");
+        System.out.println("| 4.D                    |");
         System.out.println("|                        |");
         System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
         System.out.print("\n>");
@@ -308,19 +339,184 @@ public class Main {
                 scan.nextLine();
                 return;
             }
+            if (menu_reply.equals("1")) {
+                clear_screen();
+                System.out.println("Enter a unique code for game field (Enter nothing to generate a unique code): ");
+                System.out.print(">");
+                boolean id_empty;
+                String id = scan.nextLine();
+                clear_screen();
+                if (id.contains(" ")) {
+                    show_message("Game field code must not contain space character.\nAborted!");
+                    return;
+                }
+                id_empty = id.isEmpty();
+
+                System.out.println("Enter a price for using the game field:");
+                System.out.print(">");
+
+                long price;
+                try {
+                    price = Long.parseLong(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                if (price < 0) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                clear_screen();
+                System.out.println("Enter limit for capacity of game field:");
+                System.out.print(">");
+                int capacity;
+                try {
+                    capacity = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                if (capacity < 0) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                clear_screen();
+                show_game_field_types();
+                int ft;
+                try {
+                    ft = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                if (ft < 1 || ft > 9) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                Field_Type field_type = Field_Type.values()[ft-1];
+
+                clear_screen();
+                show_game_field_classes();
+                int fc;
+                try {
+                    fc = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                if (fc < 1 || fc > 4) {
+                    clear_screen();
+                    show_message("Invalid input!\nAborted!");
+                    return;
+                }
+
+                Field_Class field_class = Field_Class.values()[fc-1];
+
+                clear_screen();
+                System.out.printf("Game field code: %s\nGame field price: %d\nGame field capacity: %d\nGame field type: %s\nGame field class: %s\n", id, price, capacity, field_type, field_class);
+                System.out.println("Are you sure? [Y/n]");
+                System.out.print(">");
+                reply = scan.nextLine();
+
+                if (reply.trim().equalsIgnoreCase("n")){
+                    clear_screen();
+                    show_message("Aborted!");
+                    return;
+                }
+
+                Game_Field game_field;
+                if (id_empty)
+                    game_field = new Game_Field(price, capacity, field_type, field_class);
+                else
+                    game_field = new Game_Field(id, price, capacity, field_type, field_class);
+
+                Database.insert_equipment(game_field);
+                clear_screen();
+                System.out.println("Game field has been successfully added to database.");
+                scan.nextLine();
+                return;
+            }
         }
     }
 
-    public static void main(String[] args) {
+    private static void add_client() {
         Scanner scan = new Scanner(System.in);
+        String reply;
+        clear_screen();
+        System.out.println("Enter a unique id for client (Enter nothing to generate a unique code): ");
+        System.out.print(">");
+        boolean id_empty;
+        String id = scan.nextLine();
+        clear_screen();
+        if (id.contains(" ")) {
+            show_message("client id must not contain space character.\nAborted!");
+            return;
+        }
+        id_empty = id.isEmpty();
+        System.out.println("Enter a name for client:");
+        System.out.print(">");
+        String name = scan.nextLine();
+        clear_screen();
+        if (name.trim().isEmpty()) {
+            show_message("Name must be at least one character.\nAborted!");
+            return;
+        }
+
+        System.out.printf("User id: %s\nUser name: %s\n\n", id, name);
+        System.out.println("Are you sure? [Y/n]");
+        System.out.print(">");
+        reply = scan.nextLine();
+
+        if (reply.trim().equalsIgnoreCase("n")){
+            clear_screen();
+            show_message("Aborted!");
+            return;
+        }
+
+        User user;
+        if (id_empty)
+            user = new User(name);
+        else
+            user = new User(id, name);
+        Database.insert_user(user);
+        clear_screen();
+        System.out.println("User has been successfully added to database.");
+        scan.nextLine();
+
+    }
+
+    public static void main(String[] args) {
+        clear_screen();
+        Scanner scan = new Scanner(System.in);
+        label:
         while (true) {
             show_menu();
             String menu_reply = scan.nextLine();
 
-            if (menu_reply.equals("2"))
-                add_equipment();
-            else if (menu_reply.equals("6"))
-                break;
+            switch (menu_reply) {
+                case "2":
+                    add_equipment();
+                    break;
+                case "3":
+                    add_client();
+                    break;
+                case "6":
+                    break label;
+            }
 
             clear_screen();
         }
