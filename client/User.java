@@ -31,6 +31,6 @@ public class User {
     public void increase_debt(long p) { this.debt += p; }
 
     public String toString() {
-        return String.format("<User [name:%s]-[id:%s]>", this.name, this.id);
+        return String.format("<User [name:%s]-[id:%s]-[debt:%d]>", this.name, this.id, this.debt);
     }
 }
