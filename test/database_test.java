@@ -366,6 +366,28 @@ public class database_test {
         Database.delete_console("C-first");
         System.out.println(Database.getConsole_list());
         System.out.println();
+        // Equipment delete
+        Equipment eq9 = new Equipment("eq9Id", 1500);
+        Game_Field gf9 = new Game_Field("gf9Id", 1000, 100, Field_Type.FOOTBALL, Field_Class.B);
+        Game_Table gt9 = new Game_Table("gt9Id", 1300, Table_Type.POOL, Table_Class.A);
+        Game_Console gc9 = new Game_Console("gc9Id", 1500, Console_Type.PS5);
+        Database.insert_equipment(eq9);
+        Database.insert_equipment(gf9);
+        Database.insert_equipment(gt9);
+        Database.insert_equipment(gc9);
+        System.out.println(Database.getEquipment_list());
+        System.out.println(Database.getField_list());
+        System.out.println(Database.getTable_list());
+        System.out.println(Database.getConsole_list());
+        Database.delete_equipment("eq9Id");
+        Database.delete_equipment("gf9Id");
+        Database.delete_equipment("gt9Id");
+        Database.delete_equipment("gc9Id");
+        System.out.println(Database.getEquipment_list());
+        System.out.println(Database.getField_list());
+        System.out.println(Database.getTable_list());
+        System.out.println(Database.getConsole_list());
+        System.out.println();
 
     }
 }
