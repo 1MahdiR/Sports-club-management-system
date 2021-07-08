@@ -1,3 +1,4 @@
+import client.Reservation;
 import client.User;
 import club.Equipment;
 import club.Game_Console;
@@ -6,6 +7,7 @@ import club.Game_Table;
 import club.enums.*;
 import utility.Database;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -17,9 +19,12 @@ public class Main {
         System.out.println("| 1.Make a reservation   |");
         System.out.println("| 2.Add a new equipment  |");
         System.out.println("| 3.Add a new client     |");
-        System.out.println("| 4.Edit equipments      |");
-        System.out.println("| 5.Edit reservations    |");
-        System.out.println("| 6.Exit                 |");
+        System.out.println("| 4.Show all equipments  |");
+        System.out.println("| 5.Show all reservations|");
+        System.out.println("| 6.Show all clients     |");
+        System.out.println("| 7.Edit equipments      |");
+        System.out.println("| 8.Edit reservations    |");
+        System.out.println("| 9.Exit                 |");
         System.out.println("|                        |");
         System.out.println("#~~~~~~~~~~~~~~~~~~~~~~~~#");
         System.out.print("\n>");
@@ -499,6 +504,36 @@ public class Main {
 
     }
 
+    private static void show_all_equipments() {
+        clear_screen();
+        System.out.println();
+        List<Equipment> list = Database.getEquipment_list();
+        for (Equipment equipment: list) {
+            System.out.println(equipment);
+        }
+        System.out.println();
+    }
+
+    private static void show_all_reservations() {
+        clear_screen();
+        System.out.println();
+        List<Reservation> list = Database.getReservation_list();
+        for (Reservation reservation: list) {
+            System.out.println(reservation);
+        }
+        System.out.println();
+    }
+
+    private static void show_all_clients() {
+        clear_screen();
+        System.out.println();
+        List<User> list = Database.getUser_list();
+        for (User user: list) {
+            System.out.println(user);
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         clear_screen();
         Scanner scan = new Scanner(System.in);
@@ -514,7 +549,19 @@ public class Main {
                 case "3":
                     add_client();
                     break;
+                case "4":
+                    show_all_equipments();
+                    scan.nextLine();
+                    break;
+                case "5":
+                    show_all_reservations();
+                    scan.nextLine();
+                    break;
                 case "6":
+                    show_all_clients();
+                    scan.nextLine();
+                    break;
+                case "9":
                     break label;
             }
 
