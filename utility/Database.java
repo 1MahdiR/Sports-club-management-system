@@ -789,5 +789,23 @@ public class Database {
         List<Game_Console> list = getConsole_list();
         list.remove(console);
     }
-    
+
+    public static void delete_equipment(String code) {
+
+        Equipment equipment;
+        List<Equipment> list = getEquipment_list();
+        try {
+            equipment = get_equipment_by_code(code);
+            if (equipment instanceof Game_Field) {
+                delete_field(code);
+            } else if (equipment instanceof Game_Table) {
+                delete_table(code);
+            } else if (equipment instanceof Game_Console) {
+                delete_console(code);
+            }
+            list.remove(equipment);
+        } catch (EquipmentCodeNotFoundException e) {
+            return;
+        }
+    }
 }
