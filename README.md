@@ -4,22 +4,22 @@ This is a java project that I made for my object-oriented design course in colle
 
 ### use case diagram
 
-![alt uml use case diagram](use_case_diagram.jpg)
+![alt uml use case diagram](uml/use_case_diagram.jpg)
 
 ### class diagram
 
-![alt uml class diagram](class_diagram.jpg)
+![alt uml class diagram](uml/class_diagram.jpg)
 
 ### activity diagrams
 
 - Activity diagram 1
 
-![alt uml activity diagram 1](activity_diagram_1.jpg)
+![alt uml activity diagram 1](uml/activity_diagram_1.jpg)
 
 - Activity diagram 2
 
-![alt uml activity diagram 2](activity_diagram_2.jpg)
+![alt uml activity diagram 2](uml/activity_diagram_2.jpg)
 
 - Activity diagram 3
 
-![alt uml activity diagram 3](activity_diagram_3.jpg)
+![alt uml activity diagram 3](uml/activity_diagram_3.jpg)
