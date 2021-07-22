@@ -2,4 +2,13 @@
 
 This is a java project that I made for my object-oriented design course in college.
 
-![alt uml class diagram](class_diagram.png)
+### class diagram
+![alt uml class diagram](class_diagram.jpg)
+
+### activity diagrams
+
+- Activity diagram 1
+![alt uml activity diagram 1](activity_diagram_1.jpg)
+
+- Activity diagram 2
+![alt uml activity diagram 2](activity_diagram_2.jpg)
